@@ -1,0 +1,18 @@
+include .coveragerc
+include CHANGES.md
+include LICENSE
+include MANIFEST.in
+include paleomix_environment.yaml
+include paleomix/yaml/CHANGES
+include paleomix/yaml/LICENSE
+include paleomix/yaml/PKG-INFO
+include paleomix/yaml/README
+include pylint.conf
+include README.rst
+include tox.ini
+
+# Non source files
+recursive-include docs *
+recursive-include misc *
+recursive-include paleomix/resources *
+recursive-include tests *

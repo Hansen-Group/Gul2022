@@ -1,0 +1,26 @@
+*.swp
+.\#*
+\#*
+*~
+__pycache__
+
+cov*.xml
+.coverage
+.coverage.*
+MANIFEST
+
+# Packages
+dist/
+build/
+sdist/
+
+*.egg/
+*.egg-info/
+.eggs/
+.tox/
+.vscode/
+.mypy_cache/
+
+# Misc
+venv
+docs/_build/
