@@ -33,6 +33,7 @@ _COMMANDS = {
     # CMBR NGS pipeline
     "ngs": "paleomix.pipelines.ngs",
     "ngs:finalize_bam": "paleomix.pipelines.ngs.tools.finalize_bam",
+    "gul2022": "paleomix.pipelines.ngs",
     # BAM/FASTQ pipeline
     "bam": "paleomix.pipelines.bam.main",
     "bam_pipeline": "paleomix.pipelines.bam.main",
@@ -67,6 +68,9 @@ _HELP = """PALEOMIX - pipelines and tools for NGS data analyses
 Version: {version}
 
 Pipelines:
+    paleomix gul2022          -- Human mapping and genotyping pipeline using    
+                                 GATK used in Gul et al. 2022.
+
     paleomix bam              -- Pipeline for trimming and mapping of NGS reads.
     paleomix trim             -- Equivalent to the 'bam' pipeline, but only runs
                                  the FASTQ trimming steps.
