@@ -1,0 +1,82 @@
+#!/usr/bin/env python3
+# -*- coding: utf8 -*-
+import os
+import shutil
+import subprocess
+import sys
+
+from pathlib import Path
+
+
+def eprint(*args, **kwargs):
+    kwargs.setdefault("file", sys.stderr)
+    print(*args, **kwargs)
+
+
+def run_container(runner, image, root, argv):
+    command = [runner, "run", "-i"]
+    if sys.stdin.isatty():
+        command.append("-t")
+
+    if runner == "podman":
+        command += [
+            # ensure that file permissions are reflected in the (rootless) container
+            "--userns=keep-id",
+            # ensure that files are created as the current user
+            f"--user={os.getuid()}:{os.getgid()}",
+        ]
+
+    command += [
+        "--rm",
+        "-v",
+        f"{root}:/data/cache",
+        "-v",
+        f"{os.getcwd()}:/data/user",
+        image,
+    ]
+
+    return subprocess.call(
+        command + argv,
+        stdin=sys.stdin,
+    )
+
+
+def main(argv):
+    image = os.environ.get("ANNOVEP_IMAGE", "annovep:v1")
+    root = os.environ.get("ANNOVEP_CACHE", Path("~/annovep/").expanduser())
+    runner = os.environ.get("ANNOVEP_RUNNER", "").lower()
+    if runner not in ("", "docker", "podman"):
+        eprint("ANNOVEP_RUNNER must be 'docker', 'podman', or not set")
+        return 1
+
+    for executable in ("podman", "docker"):
+        if shutil.which(executable):
+            runner = executable
+            break
+    else:
+        eprint("ERROR: 'podman' or 'docker' is required to run annovep")
+        return 1
+
+    os.makedirs(root, exist_ok=True)
+
+    if not os.access(root, os.X_OK | os.R_OK):
+        eprint(f"Cannot open cache directory at {root!r}.")
+        eprint("Please ensure that the cache is readable to the current user or")
+        eprint("specify a read/writable location using the command")
+        eprint("  $ export ANNOVEP_CACHE=/path/to/annovep/cache")
+        eprint("AnnoVEP cannot proceed, aborting.")
+        return 1
+
+    try:
+        return run_container(
+            runner=runner,
+            image=image,
+            root=root,
+            argv=argv,
+        )
+    except KeyboardInterrupt:
+        return 1
+
+
+if __name__ == "__main__":
+    sys.exit(main(sys.argv[1:]))

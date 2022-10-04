@@ -1,6 +1,10 @@
 # Supplementary information for Gul _et al._ 2022
 
+TODO: Citation
+
 ## Genotyping pipeline
+
+The genotyping pipeline is based on [PALEOMIX](https://github.com/MikkelSchubert/paleomix) development version 4bbc7592. For more information, see `genotyping/README.md`.
 
 ### Installation instructions
 
@@ -52,4 +56,24 @@ By defaults, resulting genotypes will be placed in
 configuration.output/genotypes/
 ```
 
-## Annoations
+## Annotations
+
+The annotation pipeline is based on [AnnoVEP](https://github.com/cbmrphenomics/annovep) development version f3847ad5. The annotation pipeline is intended to be run using podman, may used with docker docker as well. For more information, see `annotations/README.md`.
+
+### Installation instructions
+
+```bash
+cd annotations
+make
+./bin/annovep setup
+```
+
+Note that the `setup` step downloads approximately 350 GB of data and requires approximately 150 GB of space when done.
+
+### Running the annotation pipeline
+
+```bash
+./annotations/annovep pipeline input.vcf.gz output
+ls output.tsv*
+output.tsv output.tsv.columns
+```
