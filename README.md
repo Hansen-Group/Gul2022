@@ -2,6 +2,8 @@
 
 TODO: Citation
 
+For a detailed description of the steps carried out during read processing, genotyping and annotation, see `PIPELINE.md`.
+
 ## Genotyping pipeline
 
 The genotyping pipeline is based on [PALEOMIX](https://github.com/MikkelSchubert/paleomix) development version 4bbc7592. This pipeline can be found in the `genotyping` folder. For more information, see `genotyping/README.md`.
