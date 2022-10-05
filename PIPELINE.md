@@ -1,4 +1,4 @@
-# Detail description of pipeline
+# Detailed description of pipeline
 
 The following gives a detailed summary of the steps carried out by the pipeline used in Gul et al. 2022. The pipeline is implemented in `genotyping/paleomix/pipelines/ngs/pipeline.py` with most parameters specified in `configuration.yaml`. Unless otherwise specified, programs cited below were run with default parameters.
 
