@@ -5,15 +5,14 @@ dependencies:
 
   # Replacing BWA mem2 with BWA mem should yield identical results
   - bioconda::bwa-mem2=2.2.1
+  # Available from https://github.com/lh3/bwa/tree/master/bwakit
+  - bioconda::bwakit=0.7.17.dev1
 
   - bioconda::fastp=0.20.1
   - bioconda::fastqc=0.11.9
   - bioconda::gatk4=4.1.9.0
   - bioconda::samtools=1.11
   - bioconda::tabix=1.11
-
-  # Available from https://github.com/lh3/bwa/tree/master/bwakit
-  - freenome::bwakit-postalt=0.7.15
 
   # Server running the pipeline had python=3.8.10 and pip=20.0.2, but the exact
   # versions should not impact results. Pipeline not tested with python>=3.10
